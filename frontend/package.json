@@ -1,0 +1,45 @@
+{
+  "name": "truht",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.1",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@mdi/font": "7.0.96",
+    "@vuetify/loader-shared": "^1.7.1",
+    "axios": "^1.5.1",
+    "core-js": "^3.29.0",
+    "font-awesome": "^4.7.0",
+    "pinia": "^2.0.0",
+    "roboto-fontface": "*",
+    "socket.io-client": "^4.7.2",
+    "vue": "^3.2.0",
+    "vue-router": "^4.0.0",
+    "vuetify": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/types": "^7.21.4",
+    "@mdi/js": "^7.2.96",
+    "@types/node": "^18.15.0",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "@vue/test-utils": "^2.4.1",
+    "eslint": "^8.37.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "sass": "^1.68.0",
+    "typescript": "^5.0.0",
+    "unplugin-fonts": "^1.0.3",
+    "vite": "^4.2.0",
+    "vite-plugin-vuetify": "^1.0.0",
+    "vitest": "^0.34.6"
+  }
+}
