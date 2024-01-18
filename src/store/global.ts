@@ -3,9 +3,10 @@ import { ref } from "vue";
 
 const useGlobalStore = defineStore('global', () => {
   const drawerActive = ref(true),
-    drawerRail = ref(true);
+    drawerRail = ref(true),
+    snackbarMessage = ref('')
 
-  return { drawerActive, drawerRail };
+  return { drawerActive, drawerRail, snackbarMessage };
 })
 
 export default useGlobalStore;
