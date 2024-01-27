@@ -1,10 +1,10 @@
 <template>
   <v-card-actions class="pa-0 mr-2">
-    <input @change="createPostStore.handleFileChange"
-      ref="fileInput"
+    <v-file-input ref="fileInput"
       class="d-none"
-      type="file"
-      multiple>
+      v-model="createPostStore.files"
+      multiple
+      accept="image/*, video/*" />
     <v-btn @click="createPostStore.openFileInput(fileInput)"
       :size="btnSize"
       icon="mdi-paperclip"></v-btn>
@@ -18,7 +18,8 @@
       icon="mdi-map-marker"
       class="mr-auto"></v-btn>
     <v-btn variant="flat"
-      color="accent">Post</v-btn>
+      color="accent"
+      @click="createPostStore.post">Post</v-btn>
   </v-card-actions>
 </template>
 

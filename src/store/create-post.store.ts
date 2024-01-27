@@ -1,10 +1,12 @@
 import { defineStore } from "pinia";
 import { computed, ref, watch } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
+import postService from '@/services/post.service'
 
 const useCreatePost = defineStore("crate-post", () => {
   const btnSize = ref(40),
-    selectedFiles = ref<File[]>([]),
+    text = ref(''),
+    files = ref<File[]>([]),
     mediaCount = 6,
     snackbar = ref(false),
     { mobile } = useDisplay()
@@ -15,6 +17,13 @@ const useCreatePost = defineStore("crate-post", () => {
     } else btnSize.value = 40;
   });
 
+  watch(() => files.value.length, (length: number) => {
+    if (length > mediaCount) {
+      snackbar.value = true;
+      files.value = files.value.slice(0, mediaCount);
+    } else snackbar.value = false;
+  })
+
 
   function openFileInput(fileInput: HTMLInputElement | undefined) {
     if (fileInput) {
@@ -22,47 +31,35 @@ const useCreatePost = defineStore("crate-post", () => {
     }
   }
 
-  function handleFileChange(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    const files = fileInput.files;
-
-    if (files) {
-      console.log(files)
-      if (files?.length > mediaCount || selectedFiles.value.length >= 6) {
-        snackbar.value = true;
-      } else {
-        for (let i = 0; i < files.length; i++) {
-          selectedFiles.value.push(files[i]);
-        }
-        snackbar.value = false
-      }
-    }
-
-  }
 
   const imagesAndVideos = computed((): File[] => {
-    return selectedFiles.value.filter(
+    return files.value.filter(
       ({ type }) => type.startsWith("image/") || type.startsWith("video/")
-    )
+    ).slice(0, 6)
   });
 
   function removeItem(itemForRemove: File) {
-    selectedFiles.value = selectedFiles.value.filter(
+    files.value = files.value.filter(
       (item: File) => item !== itemForRemove
     );
   }
 
   function reset() {
-    selectedFiles.value = []
+    files.value = []
+  }
+
+  async function post() {
+    await postService.post({ text: text.value, files: files.value })
   }
 
   return {
     btnSize,
-    selectedFiles,
+    files,
     openFileInput,
-    handleFileChange,
     removeItem,
     reset,
+    post,
+    text,
     snackbar,
     imagesAndVideos,
   };
