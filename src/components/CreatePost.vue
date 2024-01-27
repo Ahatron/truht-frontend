@@ -1,8 +1,10 @@
 <template>
-  <v-card class="pa-2 mb-3">
+  <v-card color="grey-lighten-3"
+    class="pa-2 mb-3">
     <div class="d-flex mx-3 mt-1">
       <post-avatar />
       <v-textarea v-model="createPostStore.text"
+        variant="outlined"
         class="flex-column pt-0"
         counter
         elevation="0"
@@ -12,7 +14,7 @@
         rows="1"></v-textarea>
     </div>
     <media-grid v-if="createPostStore.imagesAndVideos.length"
-      v-model:mediaStore="createPostStore" />
+      v-model:imgsAndVideos="createPostStore.files" />
     <v-divider class="my-2"></v-divider>
     <create-post-actions />
     <v-snackbar variant="flat"

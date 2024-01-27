@@ -25,7 +25,8 @@
               <v-icon color="white" />
             </v-btn>
           </div>
-          <close-btn @click.stop="mediaStore?.removeItem(item.value)"
+          <close-btn v-if="mediaStore"
+            @click.stop="mediaStore.removeItem(item.value)"
             class="ma-1"
             position="absolute"
             :size="item.cols === 4 ? 30 : item.cols === 6 ? 40 : 50"
@@ -46,10 +47,10 @@ import WatchMedia from "@/components/WatchMedia.vue";
 import useWatchMedia, { Media } from "@/store/watch-media.store";
 import { computed } from "vue";
 
-const props = defineProps({
-  mediaStore: Object,
-}),
-  watchMediaStore = useWatchMedia()
+const props = defineProps(['mediaStore', 'media']),
+  watchMediaStore = useWatchMedia();
+
+
 function openMedia(itemId: number) {
   watchMediaStore.isActive = true;
   watchMediaStore.media = finishedMedia.value;
@@ -57,9 +58,8 @@ function openMedia(itemId: number) {
 }
 
 
-
 const finishedMedia = computed((): Media[] => {
-  const media = props.mediaStore?.imagesAndVideos,
+  const media = props.media || props.mediaStore?.imagesAndVideos,
     colsVariants = [
       [12],
       [6, 6],

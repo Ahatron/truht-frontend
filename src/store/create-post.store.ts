@@ -44,12 +44,11 @@ const useCreatePost = defineStore("crate-post", () => {
     );
   }
 
-  function reset() {
-    files.value = []
-  }
 
   async function post() {
     await postService.post({ text: text.value, files: files.value })
+    files.value = [];
+    text.value = '';
   }
 
   return {
@@ -57,7 +56,6 @@ const useCreatePost = defineStore("crate-post", () => {
     files,
     openFileInput,
     removeItem,
-    reset,
     post,
     text,
     snackbar,
