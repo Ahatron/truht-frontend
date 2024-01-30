@@ -29,7 +29,7 @@ const userStore = useUserStore(),
 
 
 onBeforeMount(() => {
-  userStore.checkUserInSystem()
+  // userStore.checkUserInSystem()
   console.info('current route is:', router.currentRoute.value.path)
 
 })
