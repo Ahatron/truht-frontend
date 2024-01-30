@@ -33,8 +33,6 @@ const useAuthStore = defineStore('auth', () => {
     loginLoading.value = true;
     const res = await AuthService.checkLogin({ userLogin: userLogin.value })
 
-    console.log(res)
-
     if (res?.status === 409) {
       loginErrorMessage.value = res.data.message;
     }

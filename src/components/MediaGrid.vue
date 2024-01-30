@@ -48,8 +48,7 @@ import useWatchMedia, { Media } from "@/store/watch-media.store";
 import { computed } from "vue";
 
 const props = defineProps(['mediaStore', 'media']),
-  watchMediaStore = useWatchMedia();
-
+  watchMediaStore = useWatchMedia()
 
 function openMedia(itemId: number) {
   watchMediaStore.isActive = true;
@@ -69,6 +68,7 @@ const finishedMedia = computed((): Media[] => {
       [12, 6, 6, 4, 4, 4],
     ];
   console.log(media)
+
   if (media) {
     return media?.map((item: any, index: number) => {
       const mediaURL = window.URL.createObjectURL(item),

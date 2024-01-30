@@ -1,11 +1,11 @@
 import base from ".";
 
 class FileService {
-  async getFile(fileId: number) {
+  async getFile(fileId: string) {
     try {
-      const file = base.get(`/file/${fileId}`);
+      const file = await base.get(`/file/${fileId}`, { responseType: "blob" });
 
-      return file;
+      return file.data;
     } catch (e) {
       console.error("File loading error: \n", e);
     }

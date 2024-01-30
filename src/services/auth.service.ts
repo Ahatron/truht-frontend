@@ -30,7 +30,6 @@ class AuthService {
   async login(req: userAuth) {
     try {
       const res = await base.post('/auth/login', req);
-      console.log(res.data.accessToken)
       localStorage.setItem('accessToken', res.data.accessToken);
       return res;
     } catch (error: any) {

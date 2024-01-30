@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import postService from "@/services/post.service";
+import fileService from "@/services/file.service";
 
 interface Post {
   text: string,
@@ -19,15 +20,26 @@ interface Post {
 }
 
 const usePostStore = defineStore('posts', () => {
-  const posts = ref<Post[]>();
+  const posts = ref<Post[]>([]), src = ref();
 
   async function getPosts() {
     const result = await postService.getPosts();
     console.log(result);
+
     posts.value = result?.data;
+
   }
 
-  return { posts, getPosts };
+  async function getFile(fileId: string) {
+    await fileService.getFile(fileId).then((res: any) => {
+      console.log(res);
+
+      src.value = URL.createObjectURL(res);
+    })
+  }
+
+
+  return { posts, src, getPosts, getFile };
 })
 
 export default usePostStore;

@@ -12,7 +12,9 @@
 
     <v-card-text class="pa-2 my-1 mx-2">{{ post.text }}</v-card-text>
 
-    <media-grid v-if="post.Files.length" />
+    <!-- <media-grid v-if="post.Files.length"
+      :media="post.Files" /> -->
+
 
     <v-divider class="my-2"></v-divider>
 
@@ -27,17 +29,23 @@
         color="primary">{{ post.views }}</v-btn>
     </v-card-actions>
   </v-card>
+  <v-img :src="postStore.src"></v-img>
 </template>
 
 <script setup lang="ts">
 import PostAvatar from "@/components/PostAvatar.vue";
 import MediaGrid from "@/components/MediaGrid.vue";
 import usePostStore from "@/store/post.store";
-import { onBeforeMount } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
+import fileService from "@/services/file.service";
 
 const postStore = usePostStore();
 
 onBeforeMount(() => {
-  postStore.getPosts()
+})
+
+onMounted(async () => {
+  await postStore.getPosts();
+  await postStore.getFile(postStore.posts[0].Files[0].id)
 })
 </script>
