@@ -56,7 +56,6 @@ const useAuthStore = defineStore('auth', () => {
       if (res?.status >= 400) {
         errorMessage.value = res.data.message;
       } else {
-        console.log(res)
         userStore.setValues(res.data);
 
         router.replace('/home');

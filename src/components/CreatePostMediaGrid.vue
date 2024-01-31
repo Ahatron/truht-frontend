@@ -25,7 +25,13 @@
               <v-icon color="white" />
             </v-btn>
           </div>
+          <close-btn @click.stop="createPostStore.removeItem(item.name)"
+            class="ma-1"
+            position="absolute"
+            :size="item.cols === 4 ? 30 : item.cols === 6 ? 40 : 50"
+            style=" right: 0; z-index: 9999;" />
         </v-card>
+
       </v-col>
     </v-row>
   </v-container>
@@ -33,19 +39,13 @@
 
 <script setup lang="ts">
 import ImgItem from "@/components/ImgItem.vue";
+import CloseBtn from "@/components/UI/CloseBtn.vue";
 import useWatchMedia, { Media } from "@/store/watch-media.store";
-import { onMounted, ref } from "vue";
-import fileService from "@/services/file.service";
+import useCreatePost from "@/store/create-post.store"
+import { computed } from "vue";
 
-
-interface smallMedia {
-  id: string;
-  filename: string;
-}
-
-const props = defineProps<{ media: smallMedia[] }>(),
-  watchMediaStore = useWatchMedia(),
-  finishedMedia = ref<Media[]>([]),
+const watchMediaStore = useWatchMedia(),
+  createPostStore = useCreatePost(),
   colsVariants = [
     [12],
     [6, 6],
@@ -55,33 +55,18 @@ const props = defineProps<{ media: smallMedia[] }>(),
     [12, 6, 6, 4, 4, 4],
   ];
 
+const finishedMedia = computed((): Media[] => {
+  const media = createPostStore.files;
 
+  if (media?.length) {
+    return media?.map((item: any, index: number) => {
+      const mediaURL = URL.createObjectURL(item),
+        colsVariant = colsVariants[media.length - 1];
 
-async function handledMedia(media: smallMedia[]): Promise<Media[]> {
-  console.log(media)
-  if (media.length) {
-    const result = [],
-      colsVariant = colsVariants[media.length - 1];
-
-    for (let i = 0; i < media.length; i++) {
-      const { id, filename } = media[i],
-        file: Blob = await fileService.getFile(id),
-        mediaURL = URL.createObjectURL(file)
-
-      console.log(file)
-      result.push({ type: file.type, name: filename, src: mediaURL, id: i, cols: colsVariant[i], });
-    }
-    return result;
+      return { name: item.name, type: item.type, src: mediaURL, cols: colsVariant[index], id: index };
+    });
   }
 
   return [];
-}
-
-onMounted(() => {
-  handledMedia(props.media).then(res => {
-    finishedMedia.value = res;
-    console.log(res)
-
-  });
-})
+});
 </script>

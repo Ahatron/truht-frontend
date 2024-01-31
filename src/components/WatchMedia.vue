@@ -29,7 +29,7 @@
               :key="item.id"
               :value="item.id">
               <div class="d-flex align-center justify-center h-100">
-                <img-item v-if="item.value.type.startsWith('image/')"
+                <img-item v-if="item.type.startsWith('image/')"
                   class="h-50"
                   :src="item.src" />
                 <video v-else

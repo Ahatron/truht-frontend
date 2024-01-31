@@ -38,9 +38,9 @@ const useCreatePost = defineStore("crate-post", () => {
     ).slice(0, 6)
   });
 
-  function removeItem(itemForRemove: File) {
+  function removeItem(itemName: string) {
     files.value = files.value.filter(
-      (item: File) => item !== itemForRemove
+      ({ name }) => name !== itemName
     );
   }
 

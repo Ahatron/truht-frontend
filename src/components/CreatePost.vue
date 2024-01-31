@@ -13,7 +13,7 @@
         auto-grow
         rows="1"></v-textarea>
     </div>
-    <media-grid v-if="createPostStore.imagesAndVideos.length"
+    <create-post-media-grid v-if="createPostStore.imagesAndVideos.length"
       v-model:imgsAndVideos="createPostStore.files" />
     <v-divider class="my-2"></v-divider>
     <create-post-actions />
@@ -26,13 +26,11 @@
 </template>
 <script setup lang="ts">
 import PostAvatar from "@/components/PostAvatar.vue";
-import MediaGrid from "@/components/MediaGrid.vue";
+import CreatePostMediaGrid from "@/components/CreatePostMediaGrid.vue";
 import CreatePostActions from "@/components/CreatePostActions.vue";
 import useCreatePost from "@/store/create-post.store";
 
 const createPostStore = useCreatePost()
-
-
 
 console.log(createPostStore.imagesAndVideos);
 </script>

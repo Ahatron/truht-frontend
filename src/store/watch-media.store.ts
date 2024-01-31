@@ -3,14 +3,19 @@ import { computed, ref } from "vue";
 
 const useWatchMedia = defineStore("watch-media", () => {
   const isActive = ref(false),
-    media = ref<Media[]>([{value: {name: '', type: ''}, id: 0, src: ''}]),
+    media = ref<Media[]>([]),
     selectedId = ref(0);
-  
-  const selectedName = computed(() => {
-    return media.value[selectedId.value].value.name;
+
+  const selectedName = computed((): string => {
+    return media.value[selectedId.value]?.name || '';
   })
 
-  return { isActive, media, selectedId, selectedName };
+  function showMedia(mediaData: any, mediaId: number) {
+    isActive.value = true;
+    media.value = mediaData;
+    selectedId.value = mediaId;
+  }
+  return { isActive, media, selectedId, selectedName, showMedia };
 });
 
 export default useWatchMedia;
@@ -18,10 +23,11 @@ export default useWatchMedia;
 
 
 interface Media {
-  value: File | {name: string, type: string};
-  id: number;
-  src: string;
-  cols?: number;
+  type: string,
+  name: string,
+  src: string,
+  id: number,
+  cols?: number
 }
 
 export { Media };

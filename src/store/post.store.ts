@@ -16,7 +16,7 @@ interface Post {
     nickname: string,
     avatar: number;
   }
-  Files: { id: string }[]
+  Files: { id: string, filename: string }[]
 }
 
 const usePostStore = defineStore('posts', () => {
@@ -30,16 +30,7 @@ const usePostStore = defineStore('posts', () => {
 
   }
 
-  async function getFile(fileId: string) {
-    await fileService.getFile(fileId).then((res: any) => {
-      console.log(res);
-
-      src.value = URL.createObjectURL(res);
-    })
-  }
-
-
-  return { posts, src, getPosts, getFile };
+  return { posts, src, getPosts };
 })
 
 export default usePostStore;

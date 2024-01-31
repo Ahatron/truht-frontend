@@ -4,11 +4,13 @@
     <NavDrawer v-if="!mobile"></NavDrawer>
     <v-main>
       <router-view class=""></router-view>
+
     </v-main>
     <v-footer class="d-none"
       color="primary">
       All rights is protected
     </v-footer>
+    <watch-media v-model="watchMediaStore.isActive" />
 
   </v-app>
 </template>
@@ -19,11 +21,18 @@ import BottomNav from "@/components/BottomNav.vue";
 import { useChatStore } from "@/store/chat";
 import { useDisplay } from "vuetify";
 import NavDrawer from "@/components/NavDrawer.vue";
-import useUserStore from "@/store/user.store"
+// import useUserStore from "@/store/user.store"
 import { onBeforeMount } from "vue";
 import router from '@/router';
+import WatchMedia from "@/components/WatchMedia.vue";
+import useWatchMedia from "@/store/watch-media.store";
 
-const userStore = useUserStore(),
+const watchMediaStore = useWatchMedia()
+
+
+
+const
+  // userStore = useUserStore(),
   chatStore = useChatStore(),
   { mobile } = useDisplay();
 
