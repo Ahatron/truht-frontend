@@ -1,7 +1,5 @@
 <template>
   <v-card color="grey-lighten-3"
-    v-for="post of postStore.posts"
-    :key="post.id"
     class="pa-2 mb-3">
 
     <div class="d-flex align-center px-3 mt-1">
@@ -34,12 +32,6 @@
 <script setup lang="ts">
 import PostAvatar from "@/components/PostAvatar.vue";
 import MediaGrid from "@/components/MediaGrid.vue";
-import usePostStore from "@/store/post.store";
-import { onMounted } from "vue";
 
-const postStore = usePostStore();
-
-onMounted(async () => {
-  await postStore.getPosts();
-})
+defineProps(['post'])
 </script>

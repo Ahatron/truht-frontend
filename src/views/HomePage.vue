@@ -8,7 +8,9 @@
         md="7"
         lg="5">
         <CreatePost />
-        <PostItem />
+        <PostItem v-for="post of postStore.posts"
+          :key="post.id"
+          :post="post" />
       </v-col>
       <v-spacer></v-spacer>
     </v-row>
@@ -18,5 +20,12 @@
 <script setup lang="ts">
 import CreatePost from "@/components/CreatePost.vue";
 import PostItem from "@/components/PostItem.vue";
+import usePostStore from "@/store/post.store";
+import { onMounted } from "vue";
 
+const postStore = usePostStore();
+
+onMounted(async () => {
+  await postStore.getPosts();
+})
 </script>

@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { computed, ref, watch } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import postService from '@/services/post.service'
+import usePostStore from "./post.store";
 
 const useCreatePost = defineStore("crate-post", () => {
   const btnSize = ref(40),
@@ -9,7 +10,8 @@ const useCreatePost = defineStore("crate-post", () => {
     files = ref<File[]>([]),
     mediaCount = 6,
     snackbar = ref(false),
-    { mobile } = useDisplay()
+    { mobile } = useDisplay(),
+    postStore = usePostStore();
 
   watch(mobile, (_, current) => {
     if (!current) {
@@ -46,9 +48,11 @@ const useCreatePost = defineStore("crate-post", () => {
 
 
   async function post() {
+    console.log(files.value)
     await postService.post({ text: text.value, files: files.value })
     files.value = [];
     text.value = '';
+    postStore.getPosts();
   }
 
   return {

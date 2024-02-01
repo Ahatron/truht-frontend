@@ -12,7 +12,7 @@ class PostService {
 
       return res;
     } catch (e) {
-      console.error(e);
+      console.error('Posting error:', e);
     }
   }
   async getPosts() {

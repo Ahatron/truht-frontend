@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import postService from "@/services/post.service";
-import fileService from "@/services/file.service";
 
 interface Post {
   text: string,
