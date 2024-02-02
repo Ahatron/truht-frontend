@@ -6,9 +6,9 @@ interface Post {
 }
 
 class PostService {
-  async post(req: Post) {
+  async post(req: FormData) {
     try {
-      const res = base.post('/post', req)
+      const res = await base.post('/post', req)
 
       return res;
     } catch (e) {
@@ -17,15 +17,25 @@ class PostService {
   }
   async getPosts() {
     try {
-      const res = base.get('/posts');
-
+      const res = await base.get('/posts');
+      console.log(res);
       return res;
     } catch (e) {
       console.error('Error getting posts: \n', e)
     }
   }
   async edit() { }
-  async remove() { }
+  async delete() { }
+  async likeToggle(postId: number) {
+    try {
+      const res = await base.post('/post/like', { postId })
+
+      console.log(res);
+
+    } catch (e) {
+      console.error('like request error: \n', e)
+    }
+  }
 }
 
 export default new PostService();

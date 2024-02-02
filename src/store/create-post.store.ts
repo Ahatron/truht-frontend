@@ -46,14 +46,22 @@ const useCreatePost = defineStore("crate-post", () => {
     );
   }
 
-
   async function post() {
     console.log(files.value)
-    await postService.post({ text: text.value, files: files.value })
+
+    const formData = new FormData();
+    formData.append('text', text.value);
+    for (const file of files.value) {
+      formData.append('files', file);
+    }
+
+    await postService.post(formData);
+    // ... остальной код
     files.value = [];
     text.value = '';
     postStore.getPosts();
   }
+
 
   return {
     btnSize,

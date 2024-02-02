@@ -28,16 +28,17 @@
               v-for="item of watchMediaStore.media"
               :key="item.id"
               :value="item.id">
-              <div class="d-flex align-center justify-center h-100">
+              <v-responsive aspect-ratio="1.78"
+                class="d-flex align-center justify-center h-100">
                 <img-item v-if="item.type.startsWith('image/')"
                   class="h-50"
                   :src="item.src" />
                 <video v-else
                   controls
-                  class="h-50">
+                  class="w-100">
                   <source :src="item.src" />
                 </video>
-              </div>
+              </v-responsive>
             </v-window-item>
           </v-window>
         </v-card>

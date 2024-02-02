@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import postService from "@/services/post.service";
 
+
 interface Post {
   text: string,
   id: number,
@@ -33,3 +34,5 @@ const usePostStore = defineStore('posts', () => {
 })
 
 export default usePostStore;
+
+export { Post }
