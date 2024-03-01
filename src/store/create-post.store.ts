@@ -46,7 +46,7 @@ const useCreatePost = defineStore("crate-post", () => {
     );
   }
 
-
+  // check
   async function post() {
     console.log(files.value)
     await postService.post({ text: text.value, files: files.value })
