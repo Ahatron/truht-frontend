@@ -9,22 +9,26 @@
         <v-card color="black"
           class="d-flex"
           @click="watchMediaStore.showMedia(finishedMedia, item.id)">
-          <img-item v-if="item.type.startsWith('image/')"
-            :src="item.src"
-            cover />
-          <div v-else
-            class="d-flex align-center justify-center h-100 position-relative">
-            <video class="w-100">
-              <source :src="item.src" />
-            </video>
-            <v-btn color="primary"
-              variant="flat"
-              position="absolute"
-              icon="mdi-play"
-              :size="item.cols === 4 ? 30 : item.cols === 6 ? 40 : 50">
-              <v-icon color="white" />
-            </v-btn>
-          </div>
+          <v-responsive aspect-ratio="1.78">
+            <img-item v-if="item.type.startsWith('image/')"
+              :lazy-src="item.src"
+              :src="item.src"
+              cover />
+            <div v-else
+              class="d-flex align-center justify-center h-100 position-relative">
+              <video class="w-100">
+                <source :lazy-src="item.src"
+                  :src="item.src" />
+              </video>
+              <v-btn color="primary"
+                variant="flat"
+                position="absolute"
+                icon="mdi-play"
+                :size="item.cols === 4 ? 30 : item.cols === 6 ? 40 : 50">
+                <v-icon color="white" />
+              </v-btn>
+            </div>
+          </v-responsive>
         </v-card>
       </v-col>
     </v-row>

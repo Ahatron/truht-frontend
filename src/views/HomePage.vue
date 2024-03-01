@@ -1,9 +1,11 @@
 <template>
-  <v-container color="background">
+  <v-container color="background"
+    class="">
     <v-row>
       <v-spacer></v-spacer>
       <!-- вместо xs существует cols -->
-      <v-col cols="12"
+      <v-col class="pa-0"
+        cols="12"
         sm="9"
         md="7"
         lg="5">
